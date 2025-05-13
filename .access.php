@@ -19,4 +19,6 @@ $PERM["company"]["9"]="T_9";
 $PERM["pub"]["*"]="R";
 $PERM["pub"]["5"]="T_8";
 $PERM["video"]["*"]="R";
+
+$PERM["__bx_log.log"]["*"] = "D";
 ?>
