@@ -1,41 +1,34 @@
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
-//use Otus\List\DoctorsTable;
-//use Otus\List\ProcedureTable;
-//use Otus\List\DoctorsProperyTable;
-use Bitrix\Iblock\Elements\ElementPatientsTable;
-use Bitrix\Main\Context;
+use Otus\List\ProvidedTable;
 
-$resPatients = ElementPatientsTable::getList([
-    'select' => [
-        'ID',
-        'NAME',
-        'TELEFON.VALUE',
-        'ADRES.VALUE'],
-    'filter' => ['IBLOCK_ID' => 18]
+$resProvide = ProvidedTable::getList([
+    'select' => ['ID', 'DESCRIPTION', 'CREATED_POST', 'DOCTOR_NAME.NAME', 'PROCEDURE_NAME.NAME']
 ])->fetchAll();
 
 $list = [];
-foreach ($resPatients as $item) {
-    $patient['data']['ID'] = $item['ID'];
-    $patient['data']['NAME'] = $item['NAME'];
-    $patient['data']['PHONE'] = $item['IBLOCK_ELEMENTS_ELEMENT_PATIENTS_TELEFON_VALUE'];
-    $patient['data']['ADR'] = $item['IBLOCK_ELEMENTS_ELEMENT_PATIENTS_ADRES_VALUE'];
-    $list[] = $patient;
+foreach ($resProvide as $item) {
+    $provide['data']['ID'] = $item['ID'];
+    $provide['data']['CREATED_POST'] = $item['CREATED_POST']->format('d.m.Y H:i');
+    $provide['data']['DOCTOR_NAME'] = $item['OTUS_LIST_PROVIDED_DOCTOR_NAME_NAME'];
+    $provide['data']['PROCEDURE_NAME'] = $item['OTUS_LIST_PROVIDED_PROCEDURE_NAME_NAME'];
+    $provide['data']['DESCRIPTION'] = $item['DESCRIPTION'];
+    $list[] = $provide;
 }
 
-$APPLICATION->SetPageProperty('title', 'Список пациентов');
-$APPLICATION->SetTitle('Список пациентов');
+$APPLICATION->SetPageProperty('title', 'Список оказанных услуг');
+$APPLICATION->SetTitle('Список оказанных услуг');
 ?>
 
 <?php
 $APPLICATION->IncludeComponent('bitrix:main.ui.grid', '', [
-    'GRID_ID' => 'patient_list',
+    'GRID_ID' => 'provide_list',
     'COLUMNS' => [
         ['id' => 'ID', 'name' => 'ID', 'sort' => 'ID', 'default' => true],
-        ['id' => 'NAME', 'name' => 'ФМО пациента', 'sort' => 'NAME', 'default' => true],
-        ['id' => 'PHONE', 'name' => 'Телефон', 'sort' => 'PHONE', 'default' => true],
-        ['id' => 'ADR', 'name' => 'Адрес', 'sort' => 'ADR', 'default' => true],
+        ['id' => 'CREATED_POST', 'name' => 'Дата проведения', 'sort' => 'NAME', 'default' => true],
+        ['id' => 'DOCTOR_NAME', 'name' => 'ФИО доктора', 'sort' => 'PHONE', 'default' => true],
+        ['id' => 'PROCEDURE_NAME', 'name' => 'Название процедуры', 'sort' => 'ADR', 'default' => true],
+        ['id' => 'DESCRIPTION', 'name' => 'Описание оказанной услуги', 'sort' => 'ADR', 'default' => true],
     ],
     'ROWS' => $list, //Самое интересное, опишем ниже
     'SHOW_ROW_CHECKBOXES' => true,
