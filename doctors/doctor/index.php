@@ -55,7 +55,7 @@ $APPLICATION->SetTitle($arDoctor[0]['OTUS_LIST_DOCTORS_ELEMENT_NAME']);
 
 <?php
 $APPLICATION->IncludeComponent('bitrix:main.ui.grid', '', [
-    'GRID_ID' => 'report_list',
+    'GRID_ID' => 'doctor_procedure_list',
     'COLUMNS' => [
         ['id' => 'ID', 'name' => 'ID', 'sort' => 'ID', 'default' => true],
         ['id' => 'PROCEDURE', 'name' => 'Название процедуры', 'sort' => 'NAME', 'default' => true],

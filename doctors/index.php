@@ -23,7 +23,7 @@ $APPLICATION->SetTitle('Список врачей');
 
 <?php
     $APPLICATION->IncludeComponent('bitrix:main.ui.grid', '', [
-    'GRID_ID' => 'report_list',
+    'GRID_ID' => 'doctor_list',
     'COLUMNS' => [
         ['id' => 'ID', 'name' => 'ID', 'sort' => 'ID', 'default' => true],
         ['id' => 'NAME', 'name' => 'ФИО врача', 'sort' => 'NAME', 'default' => true],
