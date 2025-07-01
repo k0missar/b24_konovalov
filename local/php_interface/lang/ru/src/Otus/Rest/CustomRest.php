@@ -9,3 +9,4 @@ $MESS['OTUS_ERROR_ADD_NEW_PROCEDURE'] = 'Ошибка добавления но�
 $MESS['OTUS_ERROR_DELETE_PROCEDURE'] = 'Ошибка удаления процедуры';
 $MESS['OTUS_DELETE_PROCEDURE'] = 'Процедура успешно удалена';
 $MESS['OTUS_UPDATE_NEW_PROCEDURE'] = 'Процедура с ID #ID# обновлена';
+
