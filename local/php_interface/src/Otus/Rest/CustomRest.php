@@ -209,3 +209,4 @@ class CustomRest
         return json_encode($arResult, JSON_UNESCAPED_UNICODE);
     }
 }
+
