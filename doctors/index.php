@@ -22,7 +22,9 @@ $APPLICATION->SetTitle('Список врачей');
 ?>
 
 <?php
-    $APPLICATION->IncludeComponent('bitrix:main.ui.grid', '', [
+    $APPLICATION->IncludeComponent(
+        'bitrix:main.ui.grid',
+        '', [
     'GRID_ID' => 'doctor_list',
     'COLUMNS' => [
         ['id' => 'ID', 'name' => 'ID', 'sort' => 'ID', 'default' => true],
@@ -83,6 +85,52 @@ $APPLICATION->SetTitle('Список врачей');
     'ALLOW_SORT'                => true,
     'ALLOW_PIN_HEADER'          => true,
     'AJAX_OPTION_HISTORY'       => 'N'
+    ]);
+?>
+
+
+<?php
+$list2 = [
+    [
+        'data' => ['ID' => '14',
+        'TITLE' => 'Ремонт Hyundai Tucson',
+        'OPPORTUNITY' => '750.00',
+        'DATE_CREATE' => '03-08-2025',
+        'MODEL' => 'Hyundai',
+        'MARKA' => 'Tucson',
+        'VIN' => 'KM8J3CA46MU654321',]
+    ],
+    [
+        'data' => ['ID' => '15',
+        'TITLE' => 'Ремонт Kio Rio',
+        'OPPORTUNITY' => '990.00',
+        'DATE_CREATE' => '03-08-2025',
+        'MODEL' => 'Kia Rio',
+        'MARKA' => 'X-Line',
+        'VIN' => 'Z94C251BBLR345678',]
+    ]
+];
+?>
+
+<?php
+$APPLICATION->IncludeComponent(
+    'bitrix:main.ui.grid',
+    '',
+    [
+        'GRID_ID' => 'garage_deals_grid_213123213123123',
+        'COLUMNS' => [
+            ['id' => 'ID', 'name' => 'ID', 'sort' => 'ID', 'default' => true],
+            ['id' => 'TITLE', 'name' => 'Название сделки', 'sort' => 'TITLE', 'default' => true],
+            ['id' => 'MODEL', 'name' => 'Модель', 'sort' => 'MODEL', 'default' => true],
+            ['id' => 'MARKA', 'name' => 'Марка', 'sort' => 'MARKA', 'default' => true],
+            ['id' => 'VIN', 'name' => 'VIN', 'sort' => 'VIN', 'default' => true],
+            ['id' => 'DATE_CREATE', 'name' => 'Дата сделки', 'sort' => 'DATE_CREATE', 'default' => true],
+            ['id' => 'OPPORTUNITY', 'name' => 'Стоимость сделки', 'sort' => 'OPPORTUNITY', 'default' => true],
+        ],
+        'ROWS' => $list2, //Самое интересное, опишем ниже
+        'AJAX_MODE'           => 'Y',
+        'AJAX_OPTION_JUMP'    => 'N',
+        'AJAX_OPTION_HISTORY' => 'N',
     ]);
 ?>
 <?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");

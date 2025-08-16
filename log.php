@@ -1,24 +1,17 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_before.php';
-use Bitrix\Main\Diag\Debug;
-use Otus\Diag\FileExceptionHandlesrLogCustom;
+use Bitrix\Main\UserTable;
 
-$arLog = [
-    'Тест' => 'Тестовое сообщение'
-];
+\Bitrix\Main\Loader::includeModule('intranet');
 
-//Debug::writeToFile($arLog);
+$departmentId = 19; // ID подраздела из инфоблока "departments"
 
-//Debug::dumpToFile($arLog);
+$users = UserTable::getList([
+    'select' => ['ID', 'NAME', 'LAST_NAME', 'UF_DEPARTMENT'],
+    'filter' => [
+        'UF_DEPARTMENT' => $departmentId,
+        'ACTIVE' => 'Y'
+    ]
+])->fetchAll();
 
-//Debug::startTimeLabel('testTime');
-//for ($i = 0; $i < 1000; $i++) {
-//
-//}
-//Debug::endTimeLabel('testTime');
-//echo print_r(Debug::getTimeLabels('testTime'), 1);
-
-
-FileExceptionHandlesrLogCustom::hw();
-
-echo $var;
+echo '<pre>' . print_r($users, 1) . '</pre>';
