@@ -3,6 +3,7 @@ use Bitrix\Main\Loader;
 use Bitrix\Main\Page\Asset;
 
 Loader::includeModule('ok.crmtab');
+Loader::includeModule('crm');
 
 $eventManager = \Bitrix\Main\EventManager::getInstance();
 
@@ -19,5 +20,25 @@ $eventManager->addEventHandler(
 
 AddEventHandler("main", "OnProlog", function() {
     Asset::getInstance()->addJs("/local/js/otus/field/script.js");
-    //Asset::getInstance()->addJs("/local/js/otus/procedure.js");
 });
+    'crm', 'onEntityDetailsTabsInitialized', ['Otus\CustomTabs\TabsGarage', 'updateTabs']
+);
+
+// Проверка пред добавлением сделки на ремонт
+$eventManager->addEventHandler(
+    'crm', 'OnBeforeCrmDealAdd', ['Otus\Event\DealValidator', 'checkSmartProcess']
+);
+
+// Событие после добавления сервисной сделки
+$eventManager->addEventHandler(
+    'crm', 'OnAfterCrmDealAdd', ['Otus\Event\CheckDealService', 'runCheckDealService']
+);
+
+$eventManager->addEventHandler(
+    'crm', 'onCrmDynamicItemAdd', ['Otus\Event\СheckPurchases', 'check']
+);
+
+// Событие обновления товаров после успешного завершения самат-процесса закупок
+$eventManager->addEventHandler(
+    'crm', 'onCrmDynamicItemUpdate', ['Otus\Event\UpdateProduct', 'runUpdateProduct']
+);
