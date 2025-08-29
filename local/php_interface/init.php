@@ -45,3 +45,12 @@ $eventManager->addEventHandler(
 $eventManager->addEventHandler(
     'crm', 'onCrmDynamicItemUpdate', ['Otus\Event\UpdateProduct', 'runUpdateProduct']
 );
+
+// ДЗ СОБЫТИЯ
+$eventManager->addEventHandler(
+    'iblock', 'OnAfterIBlockElementUpdate', ['Otus\Event\UpdateIBlock', 'runUpdate']
+);
+
+$eventManager->addEventHandler(
+    'crm', 'OnAfterCrmDealUpdate', ['Otus\Event\UpdateDeal', 'runUpdate']
+);
